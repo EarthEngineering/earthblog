@@ -1,9 +1,12 @@
 const builtAt = new Date().toISOString()
 const path = require('path')
+const { I18N } = require('./locales/i18n-nuxt-config')
 import blogsEn from './contents/en/blogsEn.js'
+import blogsEs from './contents/es/blogsEs.js'
 
 const productionUrl = {
-  en: "/en"
+  en: "/en",
+  es: "/es"
 };
 const baseUrl = 'https://blog.earth.engineering';
 
@@ -93,6 +96,7 @@ module.exports = {
   plugins: ['~/plugins/lazyload', '~/plugins/globalComponents', { src: '~plugins/ga.js', ssr: false }],
   modules: [  
     '@nuxtjs/style-resources',
+    ['nuxt-i18n', I18N],
     'nuxt-webfontloader'
   ],
 
@@ -114,8 +118,9 @@ module.exports = {
 
   generate: {
     routes: [
-    '404'
+    '/es', '404'
     ]
     .concat(blogsEn.map(w => `/post/${w}`))
+    .concat(blogsEs.map(w => `es/post/${w}`))
   }
 }

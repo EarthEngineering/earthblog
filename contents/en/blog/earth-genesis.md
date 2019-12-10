@@ -1,9 +1,11 @@
 ---
 name: 'earth-genesis'
+trans: 'earth-genesis'
 title: Earth Genesis
 author: Gabriel Cardona
 year: Dec 9, 2019
 color: '#edece7'
+lang: ''
 isTextColorDark: true
 extraComponent: 'Datatable'
 id: 'earth-genesis'

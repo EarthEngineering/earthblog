@@ -1,7 +1,7 @@
 <template>
   <li class="blog">
     <nuxt-link 
-      :to="{ name: 'post-slug', params: { slug: blog.name }}"
+      :to="`${blog.lang}/post/${blog.id}`"
     >
       <span>{{ blog.year }}</span>
       <h3 class="blog__title">

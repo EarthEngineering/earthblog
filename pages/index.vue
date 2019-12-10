@@ -15,14 +15,15 @@
   import BlogSection from "~/components/Sections/BlogSection"
 
   import blogsEn from '~/contents/en/blogsEn.js'
+  import blogsEs from '~/contents/es/blogsEs.js'
 
   export default {
     async asyncData ({app}) {
 
-      const blogs = blogsEn
+      const blogs = app.i18n.locale === 'en' ? blogsEn : blogsEs
       
       async function asyncImport (blogName) {
-        const wholeMD = await import(`~/contents/en/blog/${blogName}.md`)
+        const wholeMD = await import(`~/contents/${app.i18n.locale}/blog/${blogName}.md`)
         return wholeMD.attributes
       }
 
@@ -43,6 +44,9 @@
     head () {
       return {
         title: 'EARTH | A new type of network for a new type of world',
+        htmlAttrs: {
+          lang: this.$i18n.locale,
+        },
         meta: [
       { name: 'twitter:title', content: 'EARTH Blog' },
       { name: 'twitter:description', content: 'A new type of network for a new type of world.'},

@@ -4,7 +4,7 @@
       <div class="elevate-cover">
         <div class="elevate-cover__textOffset">
           <div class="elevate-cover__left">
-            <nuxt-link to="/">
+            <nuxt-link :to="localePath('index')">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 6 4" aria-hidden="true" style="width: 16px; transform: rotate(180deg);">
                   <polygon fill="currentColor" points="0 2.33 4.72 2.33 3.53 3.53 4 4 6 2 4 0 3.53 0.47 4.72 1.67 0 1.67 0 2.33"/>
               </svg>
@@ -12,6 +12,16 @@
           </div>
           <div class="elevate-cover__left">
             <span class="blogSelected-year"><a href="https://earth.engineering/">{{ author }}</a> – {{ year }}</span>
+            <br>
+            <nuxt-link
+            v-if="trans"
+            v-for="(locale, i) in showLocales"
+            :key="i"
+            :to="`${locale.code == 'en' ? '' : '/' + locale.code}/post/${trans}`"
+            >
+              {{ $t('changeLanguagePost') }}
+            </nuxt-link>
+            <span v-else>{{ $t('soonLanguagePost') }}</span>
             <h1 class="elevate-cover__title">
               {{ title }}
             </h1>
@@ -52,7 +62,7 @@
   export default {
   
     async asyncData ({params, app}) {
-      const fileContent = await import(`~/contents/en/blog/${params.slug}.md`)
+      const fileContent = await import(`~/contents/${app.i18n.locale}/blog/${params.slug}.md`)
       const attr = fileContent.attributes
       return {
         name: params.slug,
@@ -78,11 +88,18 @@
       }
     },
 
+    nuxtI18n: {
+      seo: false
+    },
+
     components: { DynamicMarkdown},
 
     head () {
       return {
         title: this.pageTitle,
+        htmlAttrs: {
+          lang: this.$i18n.locale,
+        },
         meta: [
           { name: "author", content: "EARTH" },
           { name: "description", property: "og:description", content: this.description, hid: "description" },
@@ -94,6 +111,9 @@
           { name: 'twitter:card', content: 'summary' },
           { name: 'twitter:card', content: 'summary_large_image' },
           { name: "twitter:image", content: 'https://blog.earth.engineering/meta_640.png' }
+        ],
+        link: [
+          this.hreflang
         ]
       };
     },
@@ -106,7 +126,20 @@
       pageTitle () {
         return this.title + ' – EARTH';
       },
-      
+      showLocales () {
+        return this.$i18n.locales.filter(locale => locale.code !== this.$i18n.locale)
+      },
+      hreflang () {
+        if (!this.trans) {
+          return ''
+        }
+        return {
+          hid: 'alternate-hreflang-' + this.showLocales[0].iso,
+          rel: 'alternate',
+          href: `${process.env.baseUrl + (this.showLocales[0].code === 'en' ? '' : '/es')}/post/${this.trans}`,
+          hreflang: this.showLocales[0].code
+        }
+      },
       
 
       extraComponentLoader () {

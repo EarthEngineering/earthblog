@@ -7,22 +7,24 @@
         <div style="font-size: 42px; font-family: Ubuntu; color: #222; font-weight: 700; line-height: 1.2em;">EARTH</div>
         </a>
       </div>
+      <LangSwitcher/>
     </div>
     <br>
     <br>
     <ul class="blogs">
       <blog-card
-        v-for="(blog, index) in blogs.slice().reverse()"
-        :key="index"
+        v-for="blog in blogs.slice().reverse()"
+        :key="blog.name"
         :blog="blog" />
     </ul>
   </section>
 </template>
 <script>
 import BlogCard from "~/components/BlogCard.vue";
+import LangSwitcher from '~/components/LangSwitcher';
 
 export default {
-  components: { BlogCard },
+  components: { BlogCard, LangSwitcher },
   props: {
     blogs: {
       type: Array
