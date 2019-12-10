@@ -16,11 +16,20 @@
 
   import blogsEn from '~/contents/en/blogsEn.js'
   import blogsEs from '~/contents/es/blogsEs.js'
+  import blogsCn from '~/contents/cn/blogsCn.js'
 
   export default {
     async asyncData ({app}) {
 
-      const blogs = app.i18n.locale === 'en' ? blogsEn : blogsEs
+      let blogs;
+
+      if (app.i18n.locale === 'en'){
+        blogs = blogsEn
+      } else if (app.i18n.locale === 'es'){
+        blogs = blogsEs
+      } else if (app.i18n.locale === 'cn'){
+        blogs = blogsCn
+      }
       
       async function asyncImport (blogName) {
         const wholeMD = await import(`~/contents/${app.i18n.locale}/blog/${blogName}.md`)

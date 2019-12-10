@@ -2,9 +2,9 @@ import footer from './footer'
 import indexPageHead from './index-page-head'
 
 export default {
-  changeLanguagePost: 'Artículo disponible en español',
-  changeLanguagePostAlt: '可用中文发布',
-  soonLanguagePost: 'Artículo disponible en español pronto',
+  changeLanguagePost: 'Post available in English',
+  changeLanguagePostAlt: 'Artículo disponible en español',
+  soonLanguagePost: 'Post available in English soon',
   comeBack: 'Come back',
   indexPageHead: indexPageHead,
   posts: 'Posts',

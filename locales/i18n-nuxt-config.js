@@ -13,6 +13,12 @@ const I18N = {
         iso: 'es-ES',
         name: 'Español',
         file: 'es/index.js'
+      },
+      {
+        code: 'cn',
+        iso: 'zh-CN',
+        name: 'Chinese',
+        file: 'cn/index.js'
       }
     ],
     lazy: true,

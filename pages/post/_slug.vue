@@ -13,19 +13,22 @@
           <div class="elevate-cover__left">
             <span class="blogSelected-year"><a href="https://earth.engineering/">{{ author }}</a> – {{ year }}</span>
             <br>
+            
+            <h1 class="elevate-cover__title">
+              {{ title }}
+            </h1>
+            <p class="elevate-cover__description">{{ description }}</p>
+            <br>
+            <span v-if="trans">This post is also available in:</span> 
             <nuxt-link
             v-if="trans"
             v-for="(locale, i) in showLocales"
             :key="i"
             :to="`${locale.code == 'en' ? '' : '/' + locale.code}/post/${trans}`"
             >
-              {{ $t('changeLanguagePost') }}
+              {{ locale.code == 'en' ? 'English' : (locale.code == 'es' ? 'Español' : '中文') }} <span v-if="i === 0"> – </span>
             </nuxt-link>
-            <span v-else>{{ $t('soonLanguagePost') }}</span>
-            <h1 class="elevate-cover__title">
-              {{ title }}
-            </h1>
-            <p class="elevate-cover__description">{{ description }}</p>
+            <span v-else></span>
           </div>
         </div>
         <ImageResponsive
@@ -58,6 +61,8 @@
 
 <script lang="js">
   import DynamicMarkdown from "~/components/Markdown/DynamicMarkdown.vue"
+
+  let langcode;
 
   export default {
   
@@ -133,10 +138,18 @@
         if (!this.trans) {
           return ''
         }
+        
+        if (this.showLocales[0].code === 'en'){
+          langcode = ''
+        } else if (this.showLocales[0].code === 'es'){
+          langcode = '/es'
+        } else if (this.showLocales[0].code === 'cn'){
+          langcode = '/cn'
+        }
         return {
           hid: 'alternate-hreflang-' + this.showLocales[0].iso,
           rel: 'alternate',
-          href: `${process.env.baseUrl + (this.showLocales[0].code === 'en' ? '' : '/es')}/post/${this.trans}`,
+          href: `${process.env.baseUrl + langcode}/post/${this.trans}`,
           hreflang: this.showLocales[0].code
         }
       },
