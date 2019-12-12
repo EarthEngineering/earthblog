@@ -26,7 +26,7 @@
             :key="i"
             :to="`${locale.code == 'en' ? '' : '/' + locale.code}/post/${trans}`"
             >
-              {{ locale.code == 'en' ? 'English' : (locale.code == 'es' ? 'Español' : '中文') }} <span v-if="i === 0"> – </span>
+              {{ locale.code == 'en' ? 'English' : (locale.code == 'es' ? 'Español' : (locale.code == 'cn' ? '中文' : '日本人')) }} <span v-if="i === 0 || i === 1" style="color: grey;"> – </span>
             </nuxt-link>
             <span v-else></span>
           </div>
@@ -52,7 +52,7 @@
           :extra-component="extraComponent" />
       </no-ssr>
     </div>
-    <div style="text-align: center;">Consider <a :href="`https://twitter.com/intent/tweet?text=${title}&url=https://blog.earth.engineering/${id}&hashtags=#EARTH`">spreading the word</a> if you enjoyed this post!</div>
+    <div style="text-align: center;">Consider <a :href="`https://twitter.com/intent/tweet?text=${title}&url=https://blog.earth.engineering/post/${id}&hashtags=#EARTH`">spreading the word</a> if you enjoyed this post!</div>
       <br>
       <br>
     <Subscribe/>
@@ -145,6 +145,8 @@
           langcode = '/es'
         } else if (this.showLocales[0].code === 'cn'){
           langcode = '/cn'
+        } else if (this.showLocales[0].code === 'ja'){
+          langcode = '/ja'
         }
         return {
           hid: 'alternate-hreflang-' + this.showLocales[0].iso,

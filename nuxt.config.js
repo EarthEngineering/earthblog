@@ -4,11 +4,13 @@ const { I18N } = require('./locales/i18n-nuxt-config')
 import blogsEn from './contents/en/blogsEn.js'
 import blogsEs from './contents/es/blogsEs.js'
 import blogsCn from './contents/cn/blogsCn.js'
+import blogsJa from './contents/ja/blogsJa.js'
 
 const productionUrl = {
   en: "/en",
   es: "/es",
-  cn: "/cn"
+  cn: "/cn",
+  ja: "/ja"
 };
 const baseUrl = 'https://blog.earth.engineering';
 
@@ -120,10 +122,11 @@ module.exports = {
 
   generate: {
     routes: [
-    '/es', '/cn', '404'
+    '/es', '/cn', '/ja', '404'
     ]
     .concat(blogsEn.map(w => `/post/${w}`))
     .concat(blogsEs.map(w => `es/post/${w}`))
     .concat(blogsCn.map(w => `cn/post/${w}`))
+    .concat(blogsJa.map(w => `ja/post/${w}`))
   }
 }

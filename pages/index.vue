@@ -17,6 +17,7 @@
   import blogsEn from '~/contents/en/blogsEn.js'
   import blogsEs from '~/contents/es/blogsEs.js'
   import blogsCn from '~/contents/cn/blogsCn.js'
+  import blogsJa from '~/contents/ja/blogsJa.js'
 
   export default {
     async asyncData ({app}) {
@@ -29,6 +30,8 @@
         blogs = blogsEs
       } else if (app.i18n.locale === 'cn'){
         blogs = blogsCn
+      } else if (app.i18n.locale === 'ja'){
+        blogs = blogsJa
       }
       
       async function asyncImport (blogName) {
