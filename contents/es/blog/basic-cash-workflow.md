@@ -1,7 +1,7 @@
 ---
 name: 'basic-cash-workflow-es'
 trans: 'basic-cash-workflow'
-title: Flujo de trabajo básico de efectivo
+title: Flujo de trabajo basico de Cash
 author: Gabriel Cardona
 year: Dec 12, 2019
 color: '#edece7'
@@ -286,7 +286,7 @@ console.log(main_account_resources)
 //   TotalEnergyLimit: 52934300104 }
 ```
 
-Tenga en cuenta que después de 1 transacción hay `267` `ANCHO DE BANDA` que se han utilizado fuera del `5000` inicial. A continuación, llame al comando `curl` y confirme que los saldos son correctos y se transfirió 1 EARTH entre las dos cuentas.
+Tenga en cuenta que después de 1 transacción hay `267` `ANCHO DE BANDA` que se han utilizado fuera del `5000` inicial. A continuación, Invoque el comando `curl` y confirme que los saldos son correctos y se transfirió 1 EARTH entre las dos cuentas.
 
 ```bash
 curl http://127.0.0.1:9090/admin/accounts
@@ -339,7 +339,7 @@ Available Accounts
 
 ## Congele EARTH para obtener más ANCHO DE BANDA
 
-Si no desea pagar más tarifas utilizando su EARTH, entonces puede congelarla y obtener más `ANCHO DE BANDA` a diario. Para congelar debe llamar a `transactoinBuilder.freezeBalance`. Agregue lo siguiente a su `index.js`
+Si no desea pagar más tarifas utilizando su EARTH, entonces puede congelarla y obtener más `ANCHO DE BANDA` a diario. Para congelar debe invocar a `transactoinBuilder.freezeBalance`. Agregue lo siguiente a su `index.js`
 
 Debe decidir cuánta EARTH desea congelar y durante cuánto tiempo. También debe configurar el `tipo de congelación` que puede ser `ANCHO DE BANDA` o `ENERGÍA`. Después de crear la transacción, debe firmarla y transmitirla.
 
@@ -360,7 +360,7 @@ const signedTransaction = await earthweb.earth.sign(tx, privkey)
 const result1 = await earthweb.earth.broadcast(signedTransaction)
 ```
 
-Mientras estoy depurando, agregaré llamadas a `getAccountResources` antes y después de` freezeBalance` para confirmar que la congelación funcionó y realmente obtuve más `BANDWIDTH`. Cada vez que ejecuto el script puedo ver que mi saldo de EARTH disminuye en 100 ya que eso es lo que estoy congelando.
+ Mientras estoy depurando, agregare solicitudes a `getAccountResources` antes y después de` freezeBalance` para confirmar que la congelación funcionó y realmente obtuve más `BANDWIDTH`. Cada vez que ejecuto el script puedo ver que mi saldo de EARTH disminuye en 100 ya que eso es lo que estoy congelando.
 
 También hay 3 propiedades nuevas al llamar a `getAccountResources`.
 
@@ -434,7 +434,7 @@ let unfreeze = await earthweb.transactionBuilder.unfreezeBalance(
 
 Ahora sabe cómo crear transacciones básicas en efectivo de EARTH. También está familiarizado con el concepto de `BANDWIDTH` y el ` freeNetLimit` diario que equivale a alrededor de 25 transacciones gratuitas. Además, viste cómo congelar EARTH para desbloquear más BANDWIDTH para evitar pagar tarifas.
 
-Gracias por seguirme. Una próxima publicación explorará lo contrario de `BANDWIDTH` que es` ENERGY` y se utiliza para contratos inteligentes.
+Gracias por seguirme. En una próxima publicación exploraremos lo contrario de BANDWIDTH que es ENERGY y se utiliza para contratos inteligentes.
 
 Aquí está el script final `index.js`.
 
