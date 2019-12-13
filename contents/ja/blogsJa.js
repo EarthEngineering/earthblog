@@ -1,3 +1,4 @@
 export default [
-    'earth-genesis'
+    'earth-genesis',
+    'basic-cash-workflow'
 ]
